@@ -1,99 +1,103 @@
-# Credit-Risk-EDA
-Overview
+# Credit Risk Prediction using XGBoost
 
-This project performs a comprehensive exploratory data analysis (EDA) and machine learning modeling pipeline to predict consumer credit risk. We leverage a credit profile dataset to explore key features, detect and remove outliers, handle missing values, split the data into training, validation, and testing sets, and build both Random Forest and XGBoost classifiers.
-Data Loading and Cleaning
+This project builds a binary classification model using XGBoost to predict whether a consumer will **ever charge off a loan** (`Ever_ChargeOff`) based on credit profile data. The workflow includes data preparation, model training, evaluation, and feature importance analysis.
 
-Mount Drive (Colab): Mount Google Drive to access data in /content/sample_data/.
+## 📁 Project Structure
 
-Load Data: Read the CSV file into a pandas DataFrame.
+```
+.
+├── credit_risk_model.py   # Python script with full training + evaluation code
+├── v_credit_data_NTC_v51825.csv  # Input dataset (replace with actual path)
+└── README.md              # Project description and instructions
+```
 
-Drop Unnecessary Columns: Remove ID and Unpaid_CO_84M if present.
+## 📊 Objective
 
-Outlier Detection & Removal:
+To train and evaluate an XGBoost classifier for predicting **Ever_ChargeOff** with imbalanced class handling and performance metrics including ROC-AUC, precision, recall, and F1-score.
 
-Use IQR method on non-binary numerical columns.
+---
 
-Exclude target variables and columns with constrained ranges.
+## 🛠️ Setup
 
-Missing Value Handling:
+### Requirements
 
-Identify missing values per column.
+- Python ≥ 3.7  
+- Packages:
+  - pandas
+  - numpy
+  - scikit-learn
+  - xgboost
+  - matplotlib
 
-Impute missing FICO_V values with a special placeholder (e.g., 999).
+You can install them via:
 
-Exploratory Data Analysis (EDA)
+```bash
+pip install pandas numpy scikit-learn xgboost matplotlib
+```
 
-Display first few rows and DataFrame info.
+---
 
-Compute summary statistics for numerical features.
+## 🚀 How to Run
 
-Value counts for categorical/binary columns.
+1. **Prepare the Data:**
 
-Correlation analysis and heatmaps for target variables Ever_ChargeOff and ChargeOff_Balance.
+   Replace this line in the script with your cleaned dataset:
 
-Plot distributions (histograms + KDE) for numerical columns.
+   ```python
+   df = pd.read_csv('v_credit_data_NTC_v51825.csv')
+   ```
 
-Identify and report potential outliers.
+   Perform cleaning if needed and assign the cleaned DataFrame to `df_cleaned`.
 
-Data Splitting
+2. **Model Training and Evaluation:**
 
-Split the cleaned DataFrame into three sets:
+   The script automatically:
+   - Splits the dataset into training, validation, and test sets.
+   - Adjusts for class imbalance using `scale_pos_weight`.
+   - Trains an `XGBClassifier` with early stopping on the validation set.
+   - Evaluates on both validation and test sets using:
+     - Confusion Matrix
+     - Classification Report
+     - ROC-AUC Score
+     - ROC Curve plots
 
-Training: 70%
+3. **Feature Importance:**
 
-Validation: 15%
+   After training, the top 15 most important features (by gain) are displayed and visualized with a horizontal bar chart.
 
-Test: 15%
+---
 
-Use train_test_split with fixed random_state=42 and stratify on the target variable where appropriate.
+## 📈 Output Examples
 
-Modeling
+- **Validation/Test Performance:**
 
-Random Forest Classifier
+  Confusion matrix, precision/recall/F1, and AUC on both validation and test data.
 
-Parameters:
+- **ROC Curve:**
 
-n_estimators=100
+  Plots for both validation and test sets.
 
-max_depth=6
+- **Feature Importance Plot:**
 
-class_weight='balanced'
+  A ranked bar chart showing the most impactful features in prediction.
 
-random_state=42
+---
 
-Train on the training set.
+## 🔍 Target and Feature Columns
 
-Evaluate on validation set with a custom threshold of 0.3 for Ever_ChargeOff probability.
+- **Target Variable:** `Ever_ChargeOff`
+- **Excluded Columns:** `'FICO_V'`, `'No_Hit'` (and the target column)
 
-Metrics: confusion matrix, classification report, ROC AUC.
+---
 
-Visualize a shallow decision tree (max_depth=3) for interpretability.
+## 📌 Notes
 
-Plot top 15 feature importances.
+- `early_stopping_rounds` is set to 10 to prevent overfitting.
+- The model uses `'auc'` as the evaluation metric.
+- Feature selection is manual based on domain knowledge—can be enhanced with correlation or mutual information.
 
-XGBoost Classifier
+---
 
-Parameters:
+## 📬 Contact
 
-objective='binary:logistic'
-
-n_estimators=200
-
-max_depth=5
-
-learning_rate=0.1
-
-scale_pos_weight calculated from training class imbalance
-
-use_label_encoder=False
-
-eval_metric='auc'
-
-early_stopping_rounds=10
-
-Fit with early stopping on the validation set.
-
-Evaluate performance on validation and test sets.
-
-Plot ROC curves and feature importances.
+For questions, reach out to the project author or open an issue.
