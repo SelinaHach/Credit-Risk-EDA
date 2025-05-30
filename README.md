@@ -21,7 +21,7 @@ This project covers **end-to-end exploratory data analysis (EDA)**, **data clean
   - Feature importance plotted and printed.
 
 ---
-## 📊 Metrics Evaluated
+## Metrics Evaluated
 - **Confusion Matrix**
 - **Classification Report** (Precision, Recall, F1)
 - **ROC AUC Score**
