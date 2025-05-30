@@ -96,8 +96,4 @@ pip install pandas numpy scikit-learn xgboost matplotlib
 - The model uses `'auc'` as the evaluation metric.
 - Feature selection is manual based on domain knowledge—can be enhanced with correlation or mutual information.
 
----
 
-## 📬 Contact
-
-For questions, reach out to the project author or open an issue.
