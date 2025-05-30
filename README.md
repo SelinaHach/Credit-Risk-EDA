@@ -26,11 +26,5 @@ This project covers **end-to-end exploratory data analysis (EDA)**, **data clean
 Use **Random Forest** if you need speed, simplicity, or model transparency.  
 Use **XGBoost** if your priority is **catching more charge-offs**, even at the cost of complexity and training time.
 
----
-## Metrics Evaluated
-- **Confusion Matrix**
-- **Classification Report** (Precision, Recall, F1)
-- **ROC AUC Score**
-- **Top 15 Feature Importances**
-- **Custom Thresholding for business prioritization**
+
 
